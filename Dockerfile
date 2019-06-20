@@ -1,7 +1,7 @@
 
 FROM node:jessie as build
 
-WORKDIR /app
+WORKDIR /
 
 #COPY package.json ./
 #COPY tsconfig.json ./
