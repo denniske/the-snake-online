@@ -31,7 +31,7 @@ WORKDIR /app/dist
 #RUN npm run build-ts
 
 COPY --from=build node_modules node_modules
-COPY --from=build dist dist
+COPY --from=build dist .
 
 #EXPOSE 8080
 
