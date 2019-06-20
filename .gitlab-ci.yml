@@ -4,7 +4,7 @@ stages:
   - kubernetes
 
 variables:
-  IMAGE: frontend
+  IMAGE: snake
   GOOGLE_APPLICATION_CREDENTIALS: /cred.json
   CLOUDSDK_CONFIG: /config/mygcloud
   DOCKER_DRIVER: overlay
