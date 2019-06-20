@@ -1,0 +1,51 @@
+stages:
+  - build
+  - docker
+  - kubernetes
+
+variables:
+  IMAGE: frontend
+  GOOGLE_APPLICATION_CREDENTIALS: /cred.json
+  CLOUDSDK_CONFIG: /config/mygcloud
+  DOCKER_DRIVER: overlay
+  DOCKER_HOST: tcp://docker:2375
+
+Build:
+  stage: build
+  image: node:carbon
+  script:
+    - rm -rf node_modules package-lock.json
+    - npm install
+    - npm run build-ts
+  only:
+    - master
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist
+
+
+Docker:
+    stage: docker
+    image: docker
+    services:
+        - docker:dind
+    script:
+#        - mkdir -p deploy/angular-restaurant-app/dist
+#        - cp -r dist/angular-restaurant-app/* deploy/angular-restaurant-app/dist
+#        - cd deploy
+#        - cd angular-restaurant-app
+        - docker build -t $CI_REGISTRY/$IMAGE:$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_ID-$CI_COMMIT_REF_NAME ./
+        - docker login -u _json_key -p "$SERVICE_ACCOUNT_JSON" https://eu.gcr.io
+        - docker push $CI_REGISTRY/$IMAGE:$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_ID-$CI_COMMIT_REF_NAME
+
+
+Kubernetes:
+    stage: kubernetes
+    image:
+        name: lachlanevenson/k8s-kubectl
+        entrypoint: [""]
+    script:
+        - mkdir ~/.kube
+        - echo "${KUBE_CONFIG}" > ~/.kube/config
+        - kubectl set image deployment/snake snake=$CI_REGISTRY/$IMAGE:$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_ID-$CI_COMMIT_REF_NAME
