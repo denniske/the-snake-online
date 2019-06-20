@@ -12,7 +12,7 @@ variables:
 
 Build:
   stage: build
-  image: node:carbon
+  image: node:jessie
   script:
     - rm -rf node_modules package-lock.json
     - npm install
