@@ -28,8 +28,8 @@ WORKDIR /app
 #RUN npm install
 #RUN npm run build-ts
 
-COPY --from=build node_modules .
-COPY --from=build dist .
+COPY --from=build node_modules node_modules
+COPY --from=build dist dist
 
 #EXPOSE 8080
 
