@@ -22,7 +22,7 @@ COPY assets dist/assets
 
 FROM node:jessie
 
-WORKDIR /app
+WORKDIR /app/dist
 
 #COPY package.json ./
 #COPY tsconfig.json ./
@@ -35,4 +35,4 @@ COPY --from=build dist dist
 
 #EXPOSE 8080
 
-CMD [ "node", "dist/server.js" ]
+CMD [ "node", "server.js" ]
