@@ -11,6 +11,8 @@ COPY . .
 RUN npm install
 RUN npm run build-ts
 
+COPY assets dist/assets
+
 #COPY node_modules .
 #COPY dist .
 

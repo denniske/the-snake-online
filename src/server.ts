@@ -37,7 +37,7 @@ function channelUpdated(data: any) {
     if (online) {
         log('Server starting stream.');
         command = ffmpeg()
-            .input('./src/online.mp4')
+            .input('./assets/online.mp4')
             .native()
             .videoCodec('libx264')
             .fps(29.7)

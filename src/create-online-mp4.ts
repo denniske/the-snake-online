@@ -9,7 +9,7 @@ ffmpeg.setFfprobePath(ffprobeRaw.path);
 
 
 ffmpeg()
-    .input('./src/online.png')
+    .input('./assets/online.png')
     .loop(60*60*10) // 10 hours
     .fps(29.7)
     .outputOption('-pix_fmt yuv420p')
