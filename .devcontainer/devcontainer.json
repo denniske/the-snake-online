@@ -1,0 +1,9 @@
+{
+    "name": "Node.js Sample",
+    "image": "node:jessie",
+    "appPort": 3000,
+    "extensions": [
+        "dbaeumer.vscode-eslint"
+    ],
+    "postCreateCommand": "yarn install"
+}
