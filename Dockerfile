@@ -2,12 +2,12 @@ FROM node:jessie
 
 WORKDIR /app
 
-#COPY package.json ./
+COPY package.json ./
 
-#RUN npm install
-#RUN npm run build-ts
+RUN npm install
+RUN npm run build-ts
 
 COPY dist .
 
 EXPOSE 8080
-CMD [ "node", "server.js" ]
+CMD [ "node", "dist/server.js" ]

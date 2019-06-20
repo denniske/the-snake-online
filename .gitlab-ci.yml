@@ -1,5 +1,5 @@
 stages:
-  - build
+#  - build
   - docker
   - kubernetes
 
@@ -10,19 +10,19 @@ variables:
   DOCKER_DRIVER: overlay
   DOCKER_HOST: tcp://docker:2375
 
-Build:
-  stage: build
-  image: node:jessie
-  script:
-    - rm -rf node_modules package-lock.json
-    - npm install
-    - npm run build-ts
-  only:
-    - master
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - dist
+#Build:
+#  stage: build
+#  image: node:jessie
+#  script:
+#    - rm -rf node_modules package-lock.json
+#    - npm install
+#    - npm run build-ts
+#  only:
+#    - master
+#  artifacts:
+#    expire_in: 1 day
+#    paths:
+#      - dist
 
 
 Docker:
