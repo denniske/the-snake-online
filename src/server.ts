@@ -49,6 +49,13 @@ function channelUpdated(data: any) {
             })
             .on('error', function(err, stdout, stderr) {
                 log('Error: ' + err.message);
+                command = null;
+                // Retry in 5 seconds
+                setTimeout(() => {
+                    if (command == null) {
+                        channelUpdated({online: online});
+                    }
+                }, 5000);
             })
             .on('end', () => {
                 log("Server stream ended unexpectedly.");
@@ -59,6 +66,7 @@ function channelUpdated(data: any) {
         if (command) {
             log('Server shutting down stream.');
             command.kill('SIGKILL');
+            command = null;
         }
     }
 }
